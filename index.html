@@ -81,12 +81,15 @@
         </div>
     </section>
 
-    <div class="cart-float" onclick="finalizeOrder()">
-        <div class="cart-icon-wrapper">
-            <i class="fab fa-whatsapp"></i>
+<div class="cart-actions">
+        <button class="clear-cart-btn" onclick="clearCart()">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+
+        <button class="floating-cart" onclick="finalizeOrder()">
             <span class="cart-count" id="cart-count">0</span>
-        </div>
-        <span class="cart-text">Finalizar Pedido</span>
+            <i class="fab fa-whatsapp"></i> Finalizar Pedido
+        </button>
     </div>
 
     <footer>
@@ -141,4 +144,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
