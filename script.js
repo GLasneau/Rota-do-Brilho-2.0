@@ -260,5 +260,4 @@ function filterProducts(filter) {
 
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
-
 });
