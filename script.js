@@ -240,7 +240,7 @@ function finalizeOrder() {
         return;
     }
 
-    let message = "Olá, gostaria de fazer um pedido na Rota do Brilho:\n\n";
+    let message = "*Olá, gostaria de fazer um pedido na Rota do Brilho:*\n\n";
     let total = 0;
     const summary = {};
     cart.forEach(p => {
@@ -254,7 +254,7 @@ function finalizeOrder() {
     }
 
     message += `\n*Valor Total: R$ ${total.toFixed(2)}*`;
-    message += `\n\nAguardo confirmação.`;
+    message += `\n\nAguardo a confirmação da disponibilidade e entrega..`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -299,3 +299,4 @@ function filterProducts(filter) {
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
 });
+
