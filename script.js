@@ -300,3 +300,17 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
 });
 
+function clearCart() {
+    if (cart.length === 0) {
+        alert("O carrinho já está vazio!");
+        return;
+    }
+
+    if (confirm("Tem certeza que deseja esvaziar o carrinho?")) {
+        cart = []; 
+        updateCartCount(); 
+        alert("Carrinho esvaziado com sucesso!");
+    }
+}
+
+
