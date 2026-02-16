@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = "5524999999999"; 
+const WHATSAPP_NUMBER = "5524981374226"; 
 
 const products = [
     { 
@@ -260,4 +260,5 @@ function filterProducts(filter) {
 
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
+
 });
