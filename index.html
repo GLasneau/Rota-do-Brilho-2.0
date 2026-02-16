@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rota do Brilho | Estética Automotiva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="icon" type="image/png" href="static/Imagens/favicon.png">
+
+    <meta property="og:title" content="Rota do Brilho | Estética Automotiva">
+    <meta property="og:description" content="Os melhores produtos da Vonixx, Cadillac e Protelim em Barra do Piraí. Peça agora pelo WhatsApp!">
+    <meta property="og:image" content="https://imgur.com/a/QHqO3YH">
+    <meta property="og:url" content="https://seusite.vercel.app">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#ff6b00">
+</head>
+<body>
+
+<header>
+        <div class="logo">
+            <h1>Rota do <span>Brilho</span></h1>
+            <p class="tagline">
+                <i class="fas fa-check-circle" style="color:var(--primary-color)"></i> 
+                Produtos Oficiais & Consultoria Especializada em Barra do Piraí
+            </p>
+        </div>
+    </header>
+
+    <div class="filters-container">
+        <nav class="filters">
+            <span class="filter-label"><i class="fas fa-list"></i> Categorias:</span>
+            <button class="filter-btn active" onclick="filterProducts('todos')">Todos</button>
+            <button class="filter-btn" onclick="filterProducts('lavagem')">Lavagem</button>
+            <button class="filter-btn" onclick="filterProducts('protecao')">Proteção</button>
+            <button class="filter-btn" onclick="filterProducts('interna')">Interna</button>
+            <button class="filter-btn" onclick="filterProducts('acessorios')">Acessórios</button>
+        </nav>
+
+        <nav class="filters brands-row">
+            <span class="filter-label"><i class="fas fa-tag"></i> Marcas:</span>
+            <button class="filter-btn brand-btn" onclick="filterProducts('vonixx')">Vonixx</button>
+            <button class="filter-btn brand-btn" onclick="filterProducts('cadillac')">Cadillac</button>
+            <button class="filter-btn brand-btn" onclick="filterProducts('protelim')">Protelim</button>
+            <button class="filter-btn brand-btn" onclick="filterProducts('l3d')">L3D</button>
+        </nav>
+    </div>
+
+    <main class="products-container" id="products-grid">
+        </main>
+
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-header">
+                <h2>Muito mais que uma loja. <span class="highlight">Especialistas.</span></h2>
+                <p>A Rota do Brilho nasceu de uma necessidade em Barra do Piraí: ter acesso fácil aos melhores produtos do mundo e saber exatamente como usá-los.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Nossa Missão</h3>
+                    <p>Democratizar a estética automotiva profissional. Queremos que você consiga resultados de estúdio na garagem da sua casa, usando as ferramentas certas.</p>
+                </div>
+
+                <div class="about-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Consultoria Técnica</h3>
+                    <p>Não vendemos apenas o frasco. Vendemos o resultado. Ensinamos a diluição, a aplicação e o segredo para o brilho perfeito, sem riscar a pintura.</p>
+                </div>
+
+                <div class="about-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Nossa Visão</h3>
+                    <p>Ser a referência número 1 em suprimentos automotivos na região, conectando entusiastas e profissionais às melhores marcas do mercado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-float" onclick="finalizeOrder()">
+        <div class="cart-icon-wrapper">
+            <i class="fab fa-whatsapp"></i>
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+        <span class="cart-text">Finalizar Pedido</span>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Rota do Brilho - Barra do Piraí, RJ</p>
+            
+            <div class="social-links">
+                <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" class="social-btn">
+                    <i class="fab fa-instagram"></i> Siga no Insta
+                </a>
+                <a href="https://wa.me/5524981374226" target="_blank" class="social-btn">
+                    <i class="fab fa-whatsapp"></i> Fale Conosco
+                </a>
+            </div>
+            
+            <p style="margin-top: 10px; font-size: 0.7rem; color: #666;">
+                Desenvolvido por Gabriel Lasneau e Nataniel Menezes
+            </p>
+        </div>
+    </footer>
+
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            
+            <div class="modal-body">
+                <div class="modal-img-wrapper">
+                    <img id="modal-img" src="" alt="Produto">
+                </div>
+                <div class="modal-info">
+                    <span class="modal-category" id="modal-category">Categoria</span>
+                    <h2 id="modal-title">Nome do Produto</h2>
+                    <h3 class="modal-price" id="modal-price">R$ 0,00</h3>
+                    
+                    <div class="modal-description">
+                        <h4>Sobre o produto:</h4>
+                        <p id="modal-desc">Descrição detalhada aqui...</p>
+                        
+                        <h4 style="margin-top: 15px;">Dica do Especialista:</h4>
+                        <p id="modal-tip" style="color: #b0b0b0; font-style: italic;">Dica aqui...</p>
+                    </div>
+
+                    <button class="add-btn-large" id="modal-add-btn">
+                        <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
