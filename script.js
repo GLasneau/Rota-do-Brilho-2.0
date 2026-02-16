@@ -152,7 +152,6 @@ const products = [
 
 let cart = [];
 
-
 function renderProducts(filter = 'todos') {
     const container = document.getElementById('products-grid');
     container.innerHTML = ''; 
@@ -193,12 +192,46 @@ function renderProducts(filter = 'todos') {
     
     document.querySelectorAll('.filter-btn, .brand-btn').forEach(btn => {
         btn.classList.remove('active');
-        const btnText = btn.getAttribute('onclick'); 
-        
-        if(btnText.includes(`'${filter}'`)) {
+        const btnText = btn.getAttribute('onclick');
+        if(btnText && btnText.includes(`'${filter}'`)) {
             btn.classList.add('active');
         }
     });
+}
+
+function addToCart(id, btnElement) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    cart.push(product);
+    updateCartCount();
+
+    if(btnElement) {
+        const originalContent = btnElement.innerHTML;
+        const originalBg = btnElement.style.backgroundColor;
+        const originalColor = btnElement.style.color;
+
+        btnElement.innerHTML = '<i class="fas fa-check"></i>';
+        btnElement.style.backgroundColor = '#25D366'; 
+        btnElement.style.color = '#fff';
+
+        setTimeout(() => {
+            btnElement.innerHTML = originalContent;
+            btnElement.style.backgroundColor = originalBg; 
+            btnElement.style.color = originalColor;
+        }, 1000);
+    } else {
+        console.log("Produto adicionado: " + product.name);
+    }
+}
+
+function updateCartCount() {
+    const countElement = document.getElementById('cart-count');
+    if(countElement) {
+        countElement.innerText = cart.length;
+        countElement.style.transform = "scale(1.2)";
+        setTimeout(() => countElement.style.transform = "scale(1)", 200);
+    }
 }
 
 function finalizeOrder() {
@@ -207,7 +240,7 @@ function finalizeOrder() {
         return;
     }
 
-    let message = "*Olá, gostaria de fazer um pedido na Rota do Brilho:*\n\n";
+    let message = "Olá, gostaria de fazer um pedido na Rota do Brilho:\n\n";
     let total = 0;
     const summary = {};
     cart.forEach(p => {
@@ -221,7 +254,7 @@ function finalizeOrder() {
     }
 
     message += `\n*Valor Total: R$ ${total.toFixed(2)}*`;
-    message += `\n\n_Aguardo confirmação._`;
+    message += `\n\nAguardo confirmação.`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -232,14 +265,19 @@ function openModal(id) {
     if(!product) return;
 
     document.getElementById('modal-img').src = product.image;
-    document.getElementById('modal-category').innerText = product.brand.toUpperCase(); 
+    document.getElementById('modal-category').innerText = product.brand.toUpperCase();
     document.getElementById('modal-title').innerText = product.name;
     document.getElementById('modal-price').innerText = `R$ ${product.price.toFixed(2)}`;
     document.getElementById('modal-desc').innerText = product.details || product.desc;
     document.getElementById('modal-tip').innerText = product.tip || "Consulte o rótulo.";
 
-    const modalBtn = document.getElementById('modal-add-btn');
-    modalBtn.onclick = function() { addToCart(product.id, modalBtn); };
+    const oldBtn = document.getElementById('modal-add-btn');
+    const newBtn = oldBtn.cloneNode(true);
+
+    oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+    newBtn.onclick = function() {
+        addToCart(product.id, newBtn);
+    };
 
     document.getElementById('product-modal').style.display = 'flex';
 }
